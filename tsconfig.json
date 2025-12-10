@@ -24,13 +24,17 @@
   },
   "include": [
     "**/*",
-    ".medusa/types/*"
+    "./src/**/*",
+    ".medusa/types/*",
+    "./medusa-config.js"
   ],
   "exclude": [
     "node_modules",
     ".medusa/server",
     ".medusa/admin",
     ".cache",
-    "integration-tests"
+    "integration-tests",
+    "**/*.spec.ts",
+    "instrumentation.ts"
   ]
 }
