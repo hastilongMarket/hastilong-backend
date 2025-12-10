@@ -14,7 +14,6 @@
   ],
   "scripts": {
     "build": "medusa build",
-    "rebuild:admin": "medusa build:admin",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "dev": "medusa develop",
@@ -27,7 +26,6 @@
     "@medusajs/cli": "2.12.1",
     "@medusajs/framework": "2.12.1",
     "@medusajs/medusa": "2.12.1"
-    
   },
   "devDependencies": {
     "@medusajs/test-utils": "2.12.1",

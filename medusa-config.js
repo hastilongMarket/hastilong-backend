@@ -3,22 +3,10 @@ import { loadEnv, defineConfig } from '@medusajs/framework/utils'
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
 const plugins = [
-  // CRITICAL FIX: Explicitly configure the Admin plugin
-  {
-    resolve: `@medusajs/admin`,
-    options: {
-      autoRebuild: false, // Prevents admin from trying to rebuild at start time (already built in Build Command)
-      serve: true,
-      // This path tells the running server where to find the index.html created by the build command.
-      // In a V2 monorepo structure, the compiled Admin files usually land in a folder named 'admin'
-      // or similar in the root.
-      path: process.env.ADMIN_BUILD_PATH || "admin", 
-    },
-  },
+  // THE FIX: The incompatible V1 Admin Plugin entry is removed here.
 ]
 
-// CHANGE THIS LINE: module.exports = defineConfig({
-export default defineConfig({ // TO THIS LINE
+export default defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     http: {
@@ -29,5 +17,5 @@ export default defineConfig({ // TO THIS LINE
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
   },
-  plugins,
+  plugins, // This now passes an empty array, solving the conflict.
 })
