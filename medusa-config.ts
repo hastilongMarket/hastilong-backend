@@ -2,32 +2,34 @@ import { loadEnv, defineConfig } from '@medusajs/framework/utils'
 
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
-// --- INSERT PLUGIN CONFIGURATION HERE ---
 const plugins = [
   {
-    // Use the officially supported name
     resolve: `medusa-payment-stripe`,
     options: {
-      // Medusa will look for STRIPE_API_KEY in your .env file
       api_key: process.env.STRIPE_API_KEY,
     },
   },
-  // You can add other plugins here if needed
 ]
-// --------------------------------------------------
+
+// Define a safe fallback string that satisfies the TypeScript requirement.
+// We use a safe local URL as a default, but rely entirely on the Render environment variable.
+const SAFE_CORS_FALLBACK = "http://localhost:8000"; 
 
 module.exports = defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     http: {
-      storeCors: process.env.STORE_CORS || "http://localhost:8000",
-      adminCors: process.env.ADMIN_CORS!,
-      authCors: process.env.AUTH_CORS!,
+      // FIX: Use the fallback to ensure the value is a string, preventing the TypeScript error.
+      storeCors: process.env.STORE_CORS || SAFE_CORS_FALLBACK, 
+      
+      // We must also apply this fix to adminCors and authCors if the interface demands a string
+      // and those variables are also potentially undefined.
+      adminCors: process.env.ADMIN_CORS || SAFE_CORS_FALLBACK,
+      authCors: process.env.AUTH_CORS || SAFE_CORS_FALLBACK,
+      
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     }
   },
-  // --- ADD the plugins ARRAY to defineConfig ---
   plugins,
-  // ---------------------------------------------
 })
