@@ -3,12 +3,7 @@ import { loadEnv, defineConfig } from '@medusajs/framework/utils'
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 
 const plugins = [
-  {
-    resolve: `medusa-payment-stripe`,
-    options: {
-      api_key: process.env.STRIPE_API_KEY,
-    },
-  },
+  
 ]
 
 // CHANGE THIS LINE: module.exports = defineConfig({
