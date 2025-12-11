@@ -13,9 +13,9 @@
     "medusa"
   ],
   "scripts": {
-    "build": "medusa build",
+    "build": "echo 'No build needed for Medusa v2'",
     "seed": "medusa exec ./src/scripts/seed.ts",
-    "start": "medusa start",
+    "start": "medusa start --host 0.0.0.0 --port $PORT",
     "dev": "medusa develop",
     "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
     "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
@@ -23,13 +23,16 @@
   },
   "dependencies": {
     "@medusajs/admin-sdk": "2.12.1",
-    "@medusajs/cli": "2.12.1",
     "@medusajs/framework": "2.12.1",
-    "@medusajs/medusa": "2.12.1"
+    "@medusajs/medusa": "2.12.1",
+    "@swc/helpers": "^0.5.17",
+    "ioredis": "^5.8.2",
+    "redis": "^5.10.0"
   },
   "devDependencies": {
+    "@medusajs/cli": "^2.12.1",
     "@medusajs/test-utils": "2.12.1",
-    "@swc/core": "^1.7.28",
+    "@swc/core": "^1.15.3",
     "@swc/jest": "^0.2.36",
     "@types/jest": "^29.5.13",
     "@types/node": "^20.12.11",
